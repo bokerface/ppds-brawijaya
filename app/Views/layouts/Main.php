@@ -32,32 +32,24 @@
                 <!-- navbar -->
                 <?= $this->include('./include/navbar'); ?>
 
-                <div class="container-fluid">
-
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800"><?= $page_header; ?></h1>
-                    </div>
-
-                    <?= $this->renderSection('content'); ?>
-
-                </div>
+                <?= $this->renderSection('content'); ?>
 
             </div>
 
         </div>
 
     </div>
-    <!-- Core plugin JavaScript-->
-    <script src="<?= base_url('vendor/jquery/jquery.min.js'); ?>"></script>
-    <script src="<?= base_url('vendor/jquery-easing/jquery.easing.min.js'); ?>"></script>
-
-    <?= $this->renderSection('js'); ?>
-
     <!-- Bootstrap core JavaScript-->
+    <script src="<?= base_url('vendor/jquery/jquery.min.js'); ?>"></script>
     <script src="<?= base_url('vendor/bootstrap/js/bootstrap.bundle.min.js'); ?>"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="<?= base_url('vendor/jquery-easing/jquery.easing.min.js'); ?>"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="<?= base_url('js/sb-admin-2.min.js'); ?>"></script>
+
+    <?= $this->renderSection('js'); ?>
 
 </body>
 

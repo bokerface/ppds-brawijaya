@@ -12,10 +12,17 @@ class Users extends BaseController
         $this->user_model = new UserModel();
     }
 
+    public function index()
+    {
+        $data['query'] = $this->user_model->findAll();
+        $data['page_header'] = 'Users list';
+        return view('/users/index', $data);
+    }
+
     public function add_new_user()
     {
         $data['page_header'] = 'Add new user';
-        return view('/user/add', $data);
+        return view('/users/add', $data);
     }
 
     public function post()
@@ -37,14 +44,8 @@ class Users extends BaseController
         if ($result) {
             return redirect()->to('/users')->with('success', 'Successfully added new user!');
         } else {
+            // return redirect()->back()->withInput();
             print_r($this->user_model->errors());
         }
-    }
-
-    public function index()
-    {
-        $data['query'] = $this->user_model->findAll();
-        $data['page_header'] = 'Users list';
-        return view('/user/index', $data);
     }
 }

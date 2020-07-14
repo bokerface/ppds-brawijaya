@@ -13,7 +13,7 @@
      <hr class="sidebar-divider my-0">
 
      <!-- Nav Item - Dashboard -->
-     <li class="nav-item active">
+     <li class="nav-item">
          <a class="nav-link" href="index.html">
              <i class="fas fa-fw fa-tachometer-alt"></i>
              <span>Dashboard</span></a>
@@ -108,10 +108,16 @@
          User
      </div>
 
-     <li class="nav-item">
+     <li class="nav-item" id="add-user">
          <a class="nav-link" href="<?= base_url('users/add_new_user'); ?>">
              <i class="fas fa-user-plus"></i>
              <span>Add new user</span></a>
+     </li>
+
+     <li class="nav-item" id="users-list">
+         <a class="nav-link" href="<?= base_url('users/'); ?>">
+             <i class="fas fa-users"></i>
+             <span>Users list</span></a>
      </li>
 
      <!-- Divider -->

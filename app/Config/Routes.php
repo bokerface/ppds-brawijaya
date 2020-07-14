@@ -38,6 +38,10 @@ $routes->group('users', function ($routes) {
 	$routes->get('/add_new_user', 'Users::add_new_user');
 });
 
+$routes->group('user', function ($routes) {
+	$routes->get('/profile', 'User::profile');
+});
+
 $routes->group('login', function ($routes) {
 	$routes->get('', 'Login::view');
 	$routes->post('', 'Login::login');
