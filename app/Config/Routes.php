@@ -17,8 +17,8 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Home');
-$routes->setDefaultMethod('index');
+$routes->setDefaultController('Auth');
+$routes->setDefaultMethod('view');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 $routes->setAutoRoute(true);
@@ -31,21 +31,46 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+// $routes->resource('ApiUsersList');
 
-$routes->group('users', function ($routes) {
-	$routes->get('', 'Users::index');
-	$routes->get('/add_new_user', 'Users::add_new_user');
+$routes->get('/', 'Home::index', ['filter' => 'checklogin']);
+
+// $routes->resource('tugas');
+// $routes->post('tugas', 'Tugas::index');
+$routes->post('tugas/post', 'Tugas::post', ['filter' => 'checkresiden']);
+$routes->get('tugas/tambah', 'Tugas::tambah', ['filter' => 'checkresiden']);
+$routes->get('tugas/saya', 'Tugas::saya', ['filter' => 'checkresiden']);
+$routes->delete('tugas/(:num)', 'Tugas::delete/$1', ['filter' => 'checkresiden']);
+$routes->get('tugas/edit/(:num)', 'Tugas::edit/$1', ['filter' => 'checkresiden']);
+$routes->post('tugas/edit', 'Tugas::update', ['filter' => 'checkresiden']);
+$routes->get('tugas/(:num)', 'Tugas::detail/$1');
+$routes->get('tugas/jenis/(:any)', 'Tugas::index/$1');
+
+$routes->group('admin', function ($routes) {
+	$routes->get('/', 'Home::index', ['filter' => 'checklogin']);
+	$routes->get('users/(:num)', 'Admin\Users::detail/$1');
+	$routes->get('users/', 'Admin\Users::view');
+	$routes->get('ppds/lobby', 'Admin\Users::lobby');
+	$routes->addRedirect('ppds/', 'admin/users');
+	$routes->delete('users/(:num)', 'Admin\Users::delete/$1');
+	// $routes->resource('admin/users');
 });
 
-$routes->group('user', function ($routes) {
-	$routes->get('/profile', 'User::profile');
+$routes->group('residen', function ($routes) {
+	$routes->get('/', 'Home::index', ['filter' => 'checklogin']);
 });
+
+
+$routes->get('/user/profile', 'User::profile', ['filter' => 'checklogin']);
+$routes->post('/user/edit_profile', 'User::edit_profile');
+
 
 $routes->group('login', function ($routes) {
-	$routes->get('', 'Login::view');
-	$routes->post('', 'Login::login');
+	$routes->get('', 'Auth::view');
+	$routes->post('', 'Auth::login');
 });
+
+$routes->get('/logout', 'Auth::logout', ['filter' => 'checklogin']);
 
 /**
  * --------------------------------------------------------------------

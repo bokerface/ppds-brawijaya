@@ -45,7 +45,6 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-
                                     <?php if (session('warning')) { ?>
                                         <div class="alert text-center" role="alert">
                                             <span class="text-danger"><?= session('warning'); ?></span>

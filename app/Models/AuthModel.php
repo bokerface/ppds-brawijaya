@@ -14,9 +14,11 @@ class AuthModel extends Model
         if ($query->countAllResults() == 0) {
             return false;
         } else {
+            $query = $this->db->table("ci_users")->where(array('username' => $username));
             $result = $query->get()->getRowArray();
             $valid_password = password_verify($data['password'], $result['password']);
             if ($valid_password) {
+                $query = $this->db->table("ci_users")->where(array('username' => $username));
                 return $result = $query->get()->getRowArray();
             }
         }
