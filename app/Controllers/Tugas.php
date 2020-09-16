@@ -55,14 +55,30 @@ class Tugas extends BaseController
         return view('tugas/index', $data);
     }
 
-    public function saya()
+    public function saya($jenis_tugas = 0)
     {
-        $data = [
-            'title' => 'Ilmiah Saya',
-            'query' => $this->tugas_model->getMyTugas(),
-            'page_header' => 'Daftar Ilmiah Saya',
-            'stase' => $this->stase_model->getAllStase()
-        ];
+        if ($jenis_tugas == 'ilmiah') {
+            $data = [
+                'title' => 'Ilmiah Saya',
+                'query' => $this->tugas_model->getMyIlmiah(),
+                'page_header' => 'Daftar Ilmiah Saya',
+                'stase' => $this->stase_model->getAllStase()
+            ];
+        } elseif ($jenis_tugas == 'tugas_besar') {
+            $data = [
+                'title' => 'Tugas Besar Saya',
+                'query' => $this->tugas_model->getMyTugasBesar(),
+                'page_header' => 'Tugas Besar Saya',
+                'stase' => $this->stase_model->getAllStase()
+            ];
+        } else {
+            $data = [
+                'title' => 'Tugas Saya',
+                'query' => $this->tugas_model->getMyTugas(),
+                'page_header' => 'Daftar Semua Tugas Saya',
+                'stase' => $this->stase_model->getAllStase()
+            ];
+        }
         return view('tugas/index', $data);
     }
 

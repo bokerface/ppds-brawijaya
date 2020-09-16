@@ -35,4 +35,15 @@ class Sidang extends BaseController
 
         return view('sidang/sidang', $data);
     }
+
+    public function detail($id_sidang)
+    {
+        $data = [
+            'title' => 'Sidang',
+            'query' => $this->tugas_model->getSpecificTugas($id_sidang),
+            'page_header' => 'Daftar Sidang',
+        ];
+
+        return view('sidang/sidang', $data);
+    }
 }

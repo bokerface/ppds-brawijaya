@@ -23,7 +23,7 @@
                                 <a href="<?= base_url('/tugas/jenis/ilmiah'); ?>">Semua Ilmiah</a>
                             </li>
                             <li>
-                                <a href="<?= base_url('/tugas/saya'); ?>">Ilmiah Saya</a>
+                                <a href="<?= base_url('/tugas/saya/ilmiah'); ?>">Ilmiah Saya</a>
                             </li>
                         </ul>
                     </li>
@@ -37,7 +37,7 @@
                                 <a href="<?= base_url('/tugas/jenis/tugas_besar'); ?>">Semua Tugas</a>
                             </li>
                             <li>
-                                <a href="<?= base_url('/tugas/saya'); ?>">Tugas Saya</a>
+                                <a href="<?= base_url('/tugas/saya/tugas_besar'); ?>">Tugas Saya</a>
                             </li>
                         </ul>
                     </li>
@@ -54,8 +54,8 @@
                         </a>
                     </li>
 
-                    <li id="dashboard">
-                        <a href="<?= base_url('/'); ?>">
+                    <li id="daftar-sidang">
+                        <a href="<?= base_url('/sidang'); ?>">
                             <i class="ti-book"></i> <span>Sidang</span>
                         </a>
                     </li>

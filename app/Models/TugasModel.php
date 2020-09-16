@@ -79,6 +79,32 @@ class TugasModel extends Model
         return $query;
     }
 
+    public function getMyTugasBesar()
+    {
+        $this->builder->select("*,tugas.id");
+        $this->builder->join('kategori', 'kategori.id = tugas.id_kategori');
+        $this->builder->join('ci_users', 'ci_users.id = tugas.id_ppds');
+        $this->builder->join('stase', 'stase.id = tugas.id_stase');
+        $this->builder->where('deleted_at', !0);
+        $this->builder->where('id_ppds', session('user_id'));
+        $this->builder->where('id_kategori', 2);
+        $query = $this->builder->get()->getResultArray();
+        return $query;
+    }
+
+    public function getMyIlmiah()
+    {
+        $this->builder->select("*,tugas.id");
+        $this->builder->join('kategori', 'kategori.id = tugas.id_kategori');
+        $this->builder->join('ci_users', 'ci_users.id = tugas.id_ppds');
+        $this->builder->join('stase', 'stase.id = tugas.id_stase');
+        $this->builder->where('deleted_at', !0);
+        $this->builder->where('id_ppds', session('user_id'));
+        $this->builder->where('id_kategori !=', 2);
+        $query = $this->builder->get()->getResultArray();
+        return $query;
+    }
+
     public function getSpecificTugas($id_tugas)
     {
         $query = $this->builder->getWhere(['id' => $id_tugas])->getRowArray();

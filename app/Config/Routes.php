@@ -45,6 +45,10 @@ $routes->get('tugas/edit/(:num)', 'Tugas::edit/$1', ['filter' => 'checkresiden']
 $routes->post('tugas/edit', 'Tugas::update', ['filter' => 'checkresiden']);
 $routes->get('tugas/(:num)', 'Tugas::detail/$1');
 $routes->get('tugas/jenis/(:any)', 'Tugas::index/$1');
+$routes->get('tugas/saya/(:any)', 'Tugas::saya/$1');
+
+// sidang routes
+$routes->get('sidang/(:num)', 'Sidang::detail/$1');
 
 $routes->group('admin', function ($routes) {
 	$routes->get('/', 'Home::index', ['filter' => 'checklogin']);

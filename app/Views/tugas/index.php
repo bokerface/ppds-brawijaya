@@ -40,9 +40,9 @@
                         <?php } ?>
 
                         <div class="col-sm-2">
-                            <?php if ($page_header == 'Daftar Ilmiah') { ?>
+                            <?php if ($page_header == 'Daftar Ilmiah' || $page_header == 'Daftar Ilmiah Saya') { ?>
                                 <a class="btn btn-flat btn-outline-dark btn-sm" href="<?= base_url('/tugas/tambah/ilmiah'); ?>">Unggah Ilmiah</a>
-                            <?php } elseif ($page_header == 'Tugas Besar') { ?>
+                            <?php } elseif ($page_header == 'Tugas Besar' || $page_header = 'Tugas Besar Saya') { ?>
                                 <a class="btn btn-flat btn-outline-dark btn-sm" href="<?= base_url('/tugas/tambah/tugas_besar'); ?>">Unggah Tugas Besar</a>
                             <?php } ?>
                         </div>
@@ -77,11 +77,13 @@
                                         <td class="text-center">
                                             <!-- <a href="<?= base_url('/tugas/edit/' . $tugas['id']); ?>" class="btn btn-warning btn-xs"><span class="ti-pencil"></span></a> -->
                                             <a href="<?= base_url("/tugas/" . $tugas['id']); ?>" class="btn btn-flat btn-outline-success btn-xs"><span class="ti-info"></span></a>
-                                            <form class="d-inline" action="<?= base_url('/tugas/' . $tugas['id']); ?>" method="POST">
-                                                <?= csrf_field(); ?>
-                                                <input type="hidden" name="_method" value="DELETE">
-                                                <button type="" class="btn btn-flat btn-outline-danger btn-xs" onclick="return confirm('Hapus Ilmiah?')"><span class="ti-trash"></span></button>
-                                            </form>
+                                            <?php if ($page_header == 'Tugas Besar Saya' || $page_header == 'Daftar Ilmiah Saya') { ?>
+                                                <form class="d-inline" action="<?= base_url('/tugas/' . $tugas['id']); ?>" method="POST">
+                                                    <?= csrf_field(); ?>
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <button type="" class="btn btn-flat btn-outline-danger btn-xs" onclick="return confirm('Hapus Ilmiah?')"><span class="ti-trash"></span></button>
+                                                </form>
+                                            <?php } ?>
                                         </td>
                                     </tr>
                                 <?php } ?>

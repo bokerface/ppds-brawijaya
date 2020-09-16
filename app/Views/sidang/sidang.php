@@ -19,7 +19,9 @@
                                 <?php foreach ($query as $sidang) { ?>
                                     <tr>
                                         <td>
-                                            <?= $sidang['judul']; ?>
+                                            <a href="<?= base_url('sidang/' . $sidang['id']); ?>">
+                                                <?= $sidang['judul']; ?>
+                                            </a>
                                         </td>
                                         <td>
                                             <?= $sidang['nama_lengkap']; ?>
@@ -54,7 +56,7 @@
     $('#filter-stase').on('change', function() {
         table.columns(1).search(this.value).draw();
     });
-    $('#t-besar').addClass('in');
+    $('#daftar-sidang').addClass('active');
 </script>
 <?= $this->endSection(); ?>
 
