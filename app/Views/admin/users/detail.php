@@ -47,8 +47,8 @@
                                 <p id="password_static">*********</p>
                                 <input type="hidden" name="old_password" value="<?= $data_user->password; ?>">
                             </div>
-                            <input type="submit" class="btn btn-dark mb-3 float-right" style="background: #370EFA;border-color: #370EFA;" value="Save">
-                            <button type="button" id="edit_btn" class="btn btn-dark mb-3 float-right mr-2">Edit</button>
+                            <!-- <input type="submit" class="btn btn-dark mb-3 float-right" style="background: #370EFA;border-color: #370EFA;" value="Save"> -->
+                            <!-- <button type="button" id="edit_btn" class="btn btn-dark mb-3 float-right mr-2">Edit</button> -->
                         </div>
 
                     </div>

@@ -6,6 +6,7 @@ use App\Models\RoleModel;
 use App\Models\UserModel;
 use App\Models\TahapModel;
 use App\Models\StaseModel;
+use App\Models\SupervisorModel;
 use App\Controllers\BaseController;
 
 class Users extends BaseController
@@ -14,12 +15,14 @@ class Users extends BaseController
     protected $role_model;
     protected $tahap_model;
     protected $stase_model;
+    protected $spv_model;
     public function __construct()
     {
         $this->user_model = new UserModel();
         $this->role_model = new RoleModel();
         $this->tahap_model = new TahapModel();
         $this->stase_model = new StaseModel();
+        $this->spv_model = new SuperVisorModel();
     }
 
     public function view()
@@ -76,7 +79,10 @@ class Users extends BaseController
                 'errors' => [
                     'required' => 'role cant be empty',
                 ]
-            ]
+            ],
+            // 'spv' => [
+            //     'rules' => ['']
+            // ]
         ])) {
             // dd(session());
 
@@ -92,30 +98,34 @@ class Users extends BaseController
             'spv' => $supervisor
         ];
 
-        $result = $this->user_model->insert($data);
+        $is_supervisor_exist = $this->spv_model->getSpecificSpv(6);
 
-        if ($result) {
-            if ($data['role'] == 4) {
-                date_default_timezone_set('Asia/Jakarta');
-                $ppds_id = $this->user_model->getInsertID();
-                $dataForTahap = [
-                    'id_user' => $ppds_id,
-                    'id_tahap' => 1,
-                    'tanggal_mulai' => date("Y-m-d")
-                ];
-                $this->tahap_model->insert($dataForTahap);
+        if ($is_supervisor_exist) {
+            if ($this->user_model->insert($data)) {
+                if ($data['role'] == 4) {
+                    date_default_timezone_set('Asia/Jakarta');
+                    $ppds_id = $this->user_model->getInsertID();
+                    $dataForTahap = [
+                        'id_user' => $ppds_id,
+                        'id_tahap' => 1,
+                        'tanggal_mulai' => date("Y-m-d")
+                    ];
+                    $this->tahap_model->insert($dataForTahap);
 
-                $dataForStase = [
-                    'id_user' => $ppds_id,
-                    'id_stase' => 25,
-                    'tanggal_mulai' => date("Y-m-d")
-                ];
-                $this->stase_model->insert($dataForStase);
+                    $dataForStase = [
+                        'id_user' => $ppds_id,
+                        'id_stase' => 25,
+                        'tanggal_mulai' => date("Y-m-d")
+                    ];
+                    $this->stase_model->insert($dataForStase);
+                    return redirect()->to('/admin/users')->with('success', 'Pengguna baru berhasil ditambahkan!');
+                }
                 return redirect()->to('/admin/users')->with('success', 'Pengguna baru berhasil ditambahkan!');
+            } else {
+                return redirect()->back()->with('warning', 'Gagal menambahkan pengguna baru :(');
             }
-            return redirect()->to('/admin/users')->with('success', 'Pengguna baru berhasil ditambahkan!');
         } else {
-            return redirect()->back()->with('warning', 'Gagal menambahkan pengguna baru :(');
+            return redirect()->back()->withInput()->with('danger', 'Data supervisor tidak ditemukan!');
         }
     }
 

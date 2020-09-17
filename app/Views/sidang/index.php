@@ -19,7 +19,8 @@
                                 <?php foreach ($query as $sidang) { ?>
                                     <tr>
                                         <td>
-                                            <a href="<?= base_url('sidang/' . $sidang['id']); ?>">
+                                            <!-- <a href="<?= base_url('sidang/' . $sidang['id']); ?>"> -->
+                                            <a href="#">
                                                 <?= $sidang['judul']; ?>
                                             </a>
                                         </td>

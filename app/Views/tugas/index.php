@@ -26,19 +26,19 @@
                     </div>
                 <?php } ?>
 
-                <?php if (session('role') == 4) { ?>
-                    <div class="row">
-                        <?php if ($page_header == 'Daftar Ilmiah Saya') { ?>
-                            <div class="col-sm-2">
-                                <select class="form-control btn-flat" id="filter-stase">
-                                    <option value="">Semua Stase</option>
-                                    <?php foreach ($stase as $stase) { ?>
-                                        <option value="<?= $stase['stase']; ?>"><?= $stase['stase']; ?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                        <?php } ?>
 
+                <div class="row">
+                    <?php if ($page_header == 'Daftar Ilmiah Saya' || $page_header == 'Daftar Ilmiah') { ?>
+                        <div class="col-sm-2">
+                            <select class="form-control btn-flat" id="filter-stase">
+                                <option value="">Semua Stase</option>
+                                <?php foreach ($stase as $stase) { ?>
+                                    <option value="<?= $stase['stase']; ?>"><?= $stase['stase']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    <?php } ?>
+                    <?php if (session('role') == 4) { ?>
                         <div class="col-sm-2">
                             <?php if ($page_header == 'Daftar Ilmiah' || $page_header == 'Daftar Ilmiah Saya') { ?>
                                 <a class="btn btn-flat btn-outline-dark btn-sm" href="<?= base_url('/tugas/tambah/ilmiah'); ?>">Unggah Ilmiah</a>
@@ -46,8 +46,8 @@
                                 <a class="btn btn-flat btn-outline-dark btn-sm" href="<?= base_url('/tugas/tambah/tugas_besar'); ?>">Unggah Tugas Besar</a>
                             <?php } ?>
                         </div>
-                    </div>
-                <?php } ?>
+                    <?php } ?>
+                </div>
                 <div class="col-12 mt-3">
                     <div class="data-tables datatable-dark">
                         <table id="dataTable3" class="text-center">

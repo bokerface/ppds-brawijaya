@@ -19,30 +19,35 @@
                         </a>
                         <ul class="collapse">
                             <li>
-                                <a href="#" aria-expanded="true">Tugas Divisi</a>
+                                <a href="#" aria-expanded="true">Ilmiah</a>
                                 <ul id="tugas_divisi" class="collapse">
-                                    <li id="tugas_saya"><a href="#">Semua Tugas</a></li>
+                                    <li id="tugas_saya"><a href="<?= base_url('tugas/jenis/ilmiah'); ?>">Semua Ilmiah</a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="#" aria-expanded="true">Tugas Besar</a>
                                 <ul id="tugas_besar" class="collapse">
-                                    <li id="tugas_saya"><a href="#">Semua Tugas</a></li>
+                                    <li id="tugas_saya"><a href="<?= base_url('tugas/jenis/tugas_besar'); ?>">Semua Tugas</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
+                    <li id="dashboard">
+                        <a href="<?= base_url('/sidang'); ?>">
+                            <i class="ti-dashboard"></i> <span>Sidang</span>
+                        </a>
+                    </li>
                     <li id="pdps">
                         <a href="javascript:void(0)" aria-expanded="true"><i class="ti-user"></i>
-                            <span>PPDS</span>
+                            <span>Users</span>
                         </a>
                         <ul class="collapse">
                             <li>
-                                <a href="<?= base_url('admin/users'); ?>" aria-expanded="true">Daftar PPDS</a>
+                                <a href="<?= base_url('admin/users'); ?>" aria-expanded="true">Daftar Users</a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="<?= base_url('admin/ppds/lobby'); ?>" aria-expanded="true">Lobby PPDS</a>
-                            </li>
+                            </li> -->
                             <!-- <li>
                                 <a href="#" aria-expanded="true">Tambah Pengguna</a>
                             </li> -->

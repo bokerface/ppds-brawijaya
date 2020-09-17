@@ -8,6 +8,16 @@
     <div class="col-lg-8 mt-5 ml-auto mr-auto">
         <div class="card">
             <div class="card-body">
+                <?php if (session('danger')) { ?>
+                    <div class="alert-dismiss">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?= session('danger'); ?>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span class="fa fa-times"></span>
+                            </button>
+                        </div>
+                    </div>
+                <?php } ?>
                 <form id="profile_form" method="POST" action="<?= base_url('admin/users/post'); ?>" enctype="multipart/form-data">
                     <?= csrf_field(); ?>
                     <div class="form-group row">

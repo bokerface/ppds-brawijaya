@@ -48,11 +48,11 @@
                         </a>
                     </li>
 
-                    <li id="dashboard">
+                    <!-- <li id="dashboard">
                         <a href="<?= base_url('/'); ?>">
                             <i class="ti-book"></i> <span>Log Book</span>
                         </a>
-                    </li>
+                    </li> -->
 
                     <li id="daftar-sidang">
                         <a href="<?= base_url('/sidang'); ?>">

@@ -19,4 +19,15 @@ class SupervisorModel extends Model
     {
         return $this->builder->getWhere(['role' => 3])->getResultArray();
     }
+
+    public function getSpecificSpv($id_spv)
+    {
+        $this->builder->where(['id' => $id_spv, 'role' => 3]);
+        $query = $this->builder->countAllResults();
+        if ($query > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

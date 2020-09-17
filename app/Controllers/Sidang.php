@@ -33,7 +33,7 @@ class Sidang extends BaseController
             'query' => $this->tugas_model->getAllTugasBesar()
         ];
 
-        return view('sidang/sidang', $data);
+        return view('sidang/index', $data);
     }
 
     public function detail($id_sidang)
@@ -44,6 +44,6 @@ class Sidang extends BaseController
             'page_header' => 'Daftar Sidang',
         ];
 
-        return view('sidang/sidang', $data);
+        return view('sidang/index', $data);
     }
 }
