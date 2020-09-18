@@ -31,24 +31,20 @@
                         </div>
                     </div>
 
-                    <?php if ($page_header == 'Ilmiah') { ?>
-                        <div class="form-group row">
-                            <label for="exampleInputEmail1" class="col-sm-4 col-form-label">Kategori Tugas</label>
-                            <div class="col-sm-8">
-                                <select id="kategori" class="custom-select <?= $validation->hasError('id_kategori') ? "is-invalid" : ""; ?>" name="id_kategori">
-                                    <option value="">Pilih kategori</option>
-                                    <?php foreach ($kategori as $kategori) { ?>
-                                        <option <?= $kategori['id'] == old('id_kategori') ? "selected" : ""; ?> value="<?= $kategori['id']; ?>"><?= $kategori['kategori']; ?></option>
-                                    <?php } ?>
-                                </select>
-                                <div class="invalid-feedback">
-                                    <?= $validation->getError('id_kategori'); ?>
-                                </div>
+                    <div class="form-group row">
+                        <label for="exampleInputEmail1" class="col-sm-4 col-form-label">Kategori Tugas</label>
+                        <div class="col-sm-8">
+                            <select id="kategori" class="custom-select <?= $validation->hasError('id_kategori') ? "is-invalid" : ""; ?>" name="id_kategori">
+                                <option value="">Pilih kategori</option>
+                                <?php foreach ($kategori as $kategori) { ?>
+                                    <option <?= $kategori['id'] == old('id_kategori') ? "selected" : ""; ?> value="<?= $kategori['id']; ?>"><?= $kategori['kategori']; ?></option>
+                                <?php } ?>
+                            </select>
+                            <div class="invalid-feedback">
+                                <?= $validation->getError('id_kategori'); ?>
                             </div>
                         </div>
-                    <?php } elseif ($page_header == 'Tugas Besar') { ?>
-                        <input type="hidden" name="id_kategori" value="2">
-                    <?php } ?>
+                    </div>
 
                     <div class="form-group row">
                         <label for="exampleInputEmail1" class="col-sm-4 col-form-label">File Tugas</label>
@@ -77,20 +73,57 @@
 
                     <?php if ($page_header == 'Tugas Besar') { ?>
                         <div id="list-penguji" class="form-group row">
-                            <label class="col-sm-4 col-form-label" for="exampleFormControlSelect2">Penguji</label>
+                            <label class="col-sm-4 col-form-label" for="penguji_1">Penguji Satu</label>
                             <div class="col-sm-8">
-                                <select id="penguji" name="penguji[]" multiple class="form-control" id="exampleFormControlSelect2" <?= $validation->hasError('penguji[]') ? "is-invalid" : ""; ?>>
+                                <select name="penguji_1" class="form-control" id="penguji_1" <?= $validation->hasError('penguji_1') ? "is-invalid" : ""; ?>>
+                                    <option value="">Pilih Penguji Satu</option>
                                     <?php foreach ($penguji as $penguji) { ?>
                                         <option value="<?= $penguji['id']; ?>"><?= $penguji['nama_lengkap']; ?></option>
                                     <?php } ?>
                                 </select>
                                 <div class="invalid-feedback">
-                                    <?= $validation->getError('penguji[]'); ?>
+                                    <?= $validation->getError('penguji_1'); ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="list-penguji" class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="penguji_2">Penguji Dua</label>
+                            <div class="col-sm-8">
+                                <select name="penguji_2" class="form-control" id="penguji_2" <?= $validation->hasError('penguji_2') ? "is-invalid" : ""; ?>>
+                                    <option value="">Pilih Penguji Dua</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <?= $validation->getError('penguji_2'); ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="list-penguji" class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="pembimbing_1">Pembimbing Satu</label>
+                            <div class="col-sm-8">
+                                <select name="pembimbing_1" class="form-control" id="pembimbing_1" <?= $validation->hasError('pembimbing_1') ? "is-invalid" : ""; ?>>
+                                    <option value="">Pilih Pembimbing Satu</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <?= $validation->getError('pembimbing_1'); ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="list-penguji" class="form-group row">
+                            <label class="col-sm-4 col-form-label" for="pembimbing_2">Pembimbing Dua</label>
+                            <div class="col-sm-8">
+                                <select name="pembimbing_2" class="form-control" id="pembimbing_2" <?= $validation->hasError('pembimbing_2') ? "is-invalid" : ""; ?>>
+                                    <option value="">Pilih Pembimbing Dua</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <?= $validation->getError('pembimbing_2'); ?>
                                 </div>
                             </div>
                         </div>
                     <?php } ?>
-
+                    <input type="hidden" name="jenis_tugas" value="<?= $page_header == 'Ilmiah' ? 'ilmiah' : 'tugas_besar'; ?>">
                     <input type="submit" class="btn btn-dark mb-3 float-right" style="background: #370EFA;border-color: #370EFA;" value="Unggah">
 
                 </form>
@@ -112,5 +145,36 @@
             $('#nama-file-baru').html(namaFile)
         }
     }
+
+    <?php if ($page_header == "Tugas Besar") { ?>
+
+        $(document).ready(function() {
+            $('#penguji_1').change(function() {
+                var id = $(this).val();
+                $.ajax({
+                    url: '<?= base_url(''); ?>',
+                    method: 'POST',
+                    data: {
+                        id_divisi: id
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log(data)
+                        var html = '';
+                        var i;
+                        if (data.length == 0) {
+                            html += '<option>Penanggungjawab tidak ditemukan</option>'
+                        } else {
+                            for (i = 0; i < data.length; i++) {
+                                html += '<option value = ' + data[i].id + '>' + data[i].nama_lengkap + '</option>'
+                            }
+                        }
+                        $('#staff').html(html);
+                    }
+                });
+            });
+        });
+
+    <?php } ?>
 </script>
 <?= $this->endSection(); ?>

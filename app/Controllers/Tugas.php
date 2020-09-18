@@ -90,14 +90,14 @@ class Tugas extends BaseController
                 'title' => 'Tambah Tugas',
                 'page_header' => 'Ilmiah',
                 'validation' => \Config\Services::validation(),
-                'kategori' => $this->kategori_model->getAllKategories(),
+                'kategori' => $this->kategori_model->getAllIlmiahKategories(),
             ];
         } elseif ($jenis_tugas == 'tugas_besar') {
             $data = [
                 'title' => 'Tambah Tugas',
                 'page_header' => 'Tugas Besar',
                 'validation' => \Config\Services::validation(),
-                // 'kategori' => $this->kategori_model->getAllKategories(),
+                'kategori' => $this->kategori_model->getAllTugasBesarKategories(),
                 'penguji' => $this->spv_model->getAllSpv(),
             ];
         }
@@ -144,11 +144,18 @@ class Tugas extends BaseController
             return redirect()->back()->withInput()->with('validation', $validation);
         }
 
+        $jenis_tugas = $this->request->getVar('jenis_tugas');
+
+        if ($jenis_tugas == 'ilmiah') {
+            $jenis = 1;
+        } elseif ($jenis_tugas == 'tugas_besar') {
+            $jenis = 2;
+        }
+
         $file = $this->request->getFile('file');
         $encrypted_file_name = $file->getRandomName();
         $file->move('ppds_tugas', $encrypted_file_name);
 
-        $penguji = $this->request->getVar('penguji');
         $id_kategori = $this->request->getVar('id_kategori');
 
         $data = [
@@ -158,16 +165,17 @@ class Tugas extends BaseController
             'id_kategori' => $this->request->getVar('id_kategori'),
             'file' => $encrypted_file_name,
             'jadwal_sidang' => $this->request->getVar('jadwal_sidang'),
-            'id_penguji_1' => $id_kategori == 2 ? $penguji[0] : '',
-            'id_penguji_2' => $id_kategori == 2 ? $penguji[1] : '',
-            'id_stase' => $this->stase_ppds_model->getCurrentUserStase()
+            // 'id_penguji_1' => $id_kategori == 2 ? $penguji[0] : '',
+            // 'id_penguji_2' => $id_kategori == 2 ? $penguji[1] : '',
+            'id_stase' => $this->stase_ppds_model->getCurrentUserStase(),
+            'jenis_tugas' => $jenis
         ];
 
         $result = $this->tugas_model->insert($data);
 
-        if ($id_kategori == 2) {
+        if ($jenis_tugas == 'tugas_besar') {
             $url = base_url('/tugas/index/tugas_besar');
-        } elseif ($id_kategori != 2) {
+        } elseif ($jenis_tugas == 'ilmiah') {
             $url = base_url('/tugas/index/ilmiah');
         }
 
@@ -184,7 +192,7 @@ class Tugas extends BaseController
         if ($data_tugas['id_ppds'] == session('user_id')) {
             $result = $this->tugas_model->delete($id_tugas);
             if ($result) {
-                return redirect()->to(base_url('/tugas/index'))->with('success', 'Tugas berhasil dihapus!');
+                return redirect()->back()->with('success', 'Tugas berhasil dihapus!');
             }
         } else {
             return redirect()->to(base_url('/tugas/index'))->with('danger', 'Anda tidak punya hak untuk menghapus file ini!');

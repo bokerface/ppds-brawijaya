@@ -18,4 +18,14 @@ class KategoriModel extends Model
     {
         return $this->builder->getWhere(['id !=' => 2])->getResultArray();
     }
+
+    public function getAllIlmiahKategories()
+    {
+        return $this->builder->getWhere(['jenis_tugas' => 1])->getResultArray();
+    }
+
+    public function getAllTugasBesarKategories()
+    {
+        return $this->builder->getWhere(['jenis_tugas' => 2])->getResultArray();
+    }
 }

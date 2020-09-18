@@ -23,7 +23,8 @@ class TugasModel extends Model
         'jadwal_sidang',
         'id_penguji_1',
         'id_penguji_2',
-        'id_stase'
+        'id_stase',
+        'jenis_tugas'
     ];
 
     public function __construct()
@@ -50,7 +51,7 @@ class TugasModel extends Model
         $this->builder->join('ci_users', 'ci_users.id = tugas.id_ppds');
         $this->builder->join('stase', 'stase.id = tugas.id_stase');
         $this->builder->where('tugas.deleted_at', !0);
-        $this->builder->where('tugas.id_kategori !=', 2);
+        $this->builder->where('tugas.jenis_tugas', 1);
         $query = $this->builder->get()->getResultArray();
         return $query;
     }
@@ -62,7 +63,7 @@ class TugasModel extends Model
         $this->builder->join('ci_users', 'ci_users.id = tugas.id_ppds');
         $this->builder->join('stase', 'stase.id = tugas.id_stase');
         $this->builder->where('deleted_at', !0);
-        $this->builder->where('id_kategori', 2);
+        $this->builder->where('tugas.jenis_tugas', 2);
         $query = $this->builder->get()->getResultArray();
         return $query;
     }
@@ -87,7 +88,7 @@ class TugasModel extends Model
         $this->builder->join('stase', 'stase.id = tugas.id_stase');
         $this->builder->where('deleted_at', !0);
         $this->builder->where('id_ppds', session('user_id'));
-        $this->builder->where('id_kategori', 2);
+        $this->builder->where('tugas.jenis_tugas', 2);
         $query = $this->builder->get()->getResultArray();
         return $query;
     }
@@ -98,9 +99,9 @@ class TugasModel extends Model
         $this->builder->join('kategori', 'kategori.id = tugas.id_kategori');
         $this->builder->join('ci_users', 'ci_users.id = tugas.id_ppds');
         $this->builder->join('stase', 'stase.id = tugas.id_stase');
-        $this->builder->where('deleted_at', !0);
+        $this->builder->where('tugas.deleted_at', !0);
         $this->builder->where('id_ppds', session('user_id'));
-        $this->builder->where('id_kategori !=', 2);
+        $this->builder->where('tugas.jenis_tugas', 1);
         $query = $this->builder->get()->getResultArray();
         return $query;
     }
