@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use CodeIgniter\Database\BaseBuilder;
 
 class KategoriModel extends Model
 {
@@ -16,7 +17,7 @@ class KategoriModel extends Model
 
     public function getAllKategories()
     {
-        return $this->builder->getWhere(['id !=' => 2])->getResultArray();
+        // return $this->builder->getWhere(['id !=' => 2])->getResultArray();
     }
 
     public function getAllIlmiahKategories()
@@ -27,5 +28,10 @@ class KategoriModel extends Model
     public function getAllTugasBesarKategories()
     {
         return $this->builder->getWhere(['jenis_tugas' => 2])->getResultArray();
+        // $this->builder->select('*');
+        // $this->builder->whereNotIn();
+        // $this->builder->orWhereNotIn('id', function (BaseBuilder $builder) {
+        //     return $builder->select('id_kategori')->from('tugas')->where('id_ppds', session('user_id'));
+        // });
     }
 }

@@ -33,7 +33,7 @@
                             </div>
                             <div class="d-flex justify-content-between pb-2">
                                 <h2></h2>
-                                <h2>5</h2>
+                                <h2><?= $my_ilmiah; ?></h2>
                             </div>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                             </div>
                             <div class="d-flex justify-content-between pb-2">
                                 <h2></h2>
-                                <h2>5</h2>
+                                <h2><?= $my_tugas_besar; ?></h2>
                             </div>
                         </div>
                     </div>

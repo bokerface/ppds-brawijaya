@@ -21,12 +21,15 @@ class Home extends BaseController
 			return redirect()->to('/login');
 		} else {
 			if (session('role') == 4) {
-				$data = [
-					'title' => 'Dashboard',
-					'page_header' => 'Dashboard',
-					'user_data' => $this->user_model->getCurrentUserData()
-				];
-				return view('home', $data);
+				// $data = [
+				// 	'title' => 'Dashboard',
+				// 	'page_header' => 'Dashboard',
+				// 	'user_data' => $this->user_model->getCurrentUserData(),
+				// 	'my_ilmiah' => $this->tugas_model->countMyIlmiah(),
+				// 	'my_tugas_besar' => $this->tugas_model->countMyTugasBesar(),
+				// ];
+				// return view('home', $data);
+				dd($this->tugas_model->myIncomingSidang());
 				// dd($data['user_data']);
 			} else {
 				$data = [

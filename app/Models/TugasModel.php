@@ -5,6 +5,7 @@ namespace App\Models;
 use Codeigniter\Database\ConnectionInterface;
 use CodeIgniter\Database\Query;
 use CodeIgniter\Model;
+use DateTime;
 
 class TugasModel extends Model
 {
@@ -122,5 +123,33 @@ class TugasModel extends Model
         $this->builder->where('tugas.id', $id_tugas);
         $query = $this->builder->get()->getRowArray();
         return $query;
+    }
+
+    public function countMyIlmiah()
+    {
+        $this->builder->select('*');
+        $this->builder->where('id_ppds', session('user_id'));
+        $this->builder->where('jenis_tugas', 1);
+        $this->builder->where('deleted_at', 0);
+        return $this->builder->countAllResults();
+    }
+
+    public function countMyTugasBesar()
+    {
+        $this->builder->select('*');
+        $this->builder->where('id_ppds', session('user_id'));
+        $this->builder->where('jenis_tugas', 2);
+        $this->builder->where('deleted_at', 0);
+        return $this->builder->countAllResults();
+    }
+
+    public function myIncomingSidang()
+    {
+        $today = new DateTime();
+        $this->builder->select('*');
+        $this->builder->where('id_ppds', session('user_id'));
+        $this->builder->where('jenis_tugas', 2);
+        $this->builder->where('jadwal_sidang =<', date("Y-m-d"));
+        return $this->builder->get()->getResultArray();
     }
 }

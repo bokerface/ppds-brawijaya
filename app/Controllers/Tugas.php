@@ -103,6 +103,7 @@ class Tugas extends BaseController
         }
 
         return view('tugas/tambah', $data);
+        // dd($this->kategori_model->getAllTugasBesarKategories());
     }
 
     public function post()
