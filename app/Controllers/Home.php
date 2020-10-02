@@ -20,17 +20,19 @@ class Home extends BaseController
 		if (!session()) {
 			return redirect()->to('/login');
 		} else {
+			// dd($this->user_model->getCurrentUserData());
+			$sidangku = $this->tugas_model->incomingSidang();
 			if (session('role') == 4) {
-				// $data = [
-				// 	'title' => 'Dashboard',
-				// 	'page_header' => 'Dashboard',
-				// 	'user_data' => $this->user_model->getCurrentUserData(),
-				// 	'my_ilmiah' => $this->tugas_model->countMyIlmiah(),
-				// 	'my_tugas_besar' => $this->tugas_model->countMyTugasBesar(),
-				// ];
-				// return view('home', $data);
-				dd($this->tugas_model->myIncomingSidang());
-				// dd($data['user_data']);
+				$data = [
+					'title' => 'Dashboard',
+					'page_header' => 'Dashboard',
+					'user_data' => $this->user_model->getCurrentUserData(),
+					'my_ilmiah' => $this->tugas_model->countMyIlmiah(),
+					'my_tugas_besar' => $this->tugas_model->countMyTugasBesar(),
+					'incoming_sidang' => $this->tugas_model->incomingSidang(),
+					'my_incoming_sidang' => $this->tugas_model->myIncomingSidang(),
+				];
+				return view('home', $data);
 			} else {
 				$data = [
 					'title' => 'Dashboard',

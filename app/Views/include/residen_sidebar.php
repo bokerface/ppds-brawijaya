@@ -42,6 +42,13 @@
                         </ul>
                     </li>
 
+                    <!-- <li id="logbook">
+                        <a href="<?= base_url('/logbook'); ?>">
+                            <i class="ti-book"></i> <span>Log Book</span>
+                        </a>
+                    </li> -->
+
+
                     <li id="stase">
                         <a href="<?= base_url('/user/stase'); ?>">
                             <i class="ti-home"></i> <span>Stase Saya</span>

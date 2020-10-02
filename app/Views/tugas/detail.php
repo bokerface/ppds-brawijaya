@@ -1,3 +1,5 @@
+<?php helper('data_helper') ?>
+
 <?= $this->extend('layouts/main'); ?>
 
 <?= $this->section('content'); ?>
@@ -27,7 +29,7 @@
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-7 col-form-label">Nilai</label>
-                                <label class="col-sm-5 col-form-label text-right"><?= $tugas['nilai']; ?></label>
+                                <label class="col-sm-5 col-form-label text-right"><?= ($tugas['nilai_1'] + $tugas['nilai_2'] + $tugas['nilai_3'] + $tugas['nilai_4']) / 4; ?></label>
                             </div>
                         </div>
                     </div>
@@ -47,9 +49,8 @@
                                 <div class="col-sm-12 mt-4">
                                     <div class="row">
                                         <a href="<?= base_url('ppds_tugas/' . $tugas['file']); ?>" class="btn btn-flat btn-xl btn-outline-dark mb-3 mr-3 btn-block">Unduh File</a>
-                                        <?php if (session('role') == 3) { ?>
-                                            <button type="button" class="btn btn-flat btn-xl btn-outline-dark mb-3 mr-3" data-toggle="modal" data-target="#exampleModalCenter">Masukkan Nilai</button>
-                                            <button type="button" class="btn btn-flat btn-xl btn-outline-dark mb-3 mr-3">Konfirmasi</button>
+                                        <?php if (session('role') == 3 || session('role') == 1) { ?>
+                                            <button type="button" class="btn btn-flat btn-xl btn-outline-dark mb-3 mr-3 btn-block" data-toggle="modal" data-target="#exampleModalCenter">Masukkan Nilai</button>
                                         <?php } ?>
                                     </div>
                                 </div>
@@ -61,23 +62,72 @@
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius voluptates explicabo natus nobis, aperiam placeat aliquid nisi ut exercitationem dolor quisquam nam tempora voluptatem. Unde dignissimos est aliquid quidem porro dolorum ipsam suscipit animi quas, debitis ea, sunt quo distinctio doloribus eveniet dolores tempore delectus voluptatum! Possimus earum asperiores animi.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+    <?php if (session('role') == 3 || session('role') == 1) { ?>
+        <div class="modal fade" id="exampleModalCenter">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <form action="<?= base_url('tugas/nilai/post'); ?>" method="POST">
+                        <input type="hidden" name="hidden_tugas_id" value="<?= $tugas['id']; ?>">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                        </div>
+                        <?php if (checkSpvPosition('id_penguji_1', $tugas['id']) || session('role') == 1) { ?>
+                            <div class="modal-body">
+                                <div class="form-group row">
+                                    <label for="exampleInputEmail1" class="col-sm-4 col-form-label">Nilai Penguji 1</label>
+                                    <div class="col-sm-8">
+                                        <input type="number" name="nilai_1" class="form-control" id="" value="<?= $tugas['nilai_1']; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                        <input type="hidden" name="hidden_nilai_1" value="<?= $tugas['nilai_1']; ?>">
+
+                        <?php if (checkSpvPosition('id_penguji_2', $tugas['id']) || session('role') == 1) { ?>
+                            <div class="modal-body">
+                                <div class="form-group row">
+                                    <label for="exampleInputEmail1" class="col-sm-4 col-form-label">Nilai Penguji 2</label>
+                                    <div class="col-sm-8">
+                                        <input type="number" name="nilai_2" class="form-control" id="" value="<?= $tugas['nilai_2']; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                        <input type="hidden" name="hidden_nilai_2" value="<?= $tugas['nilai_2']; ?>">
+
+                        <?php if (checkSpvPosition('id_pembimbing_1', $tugas['id']) || session('role') == 1) { ?>
+                            <div class="modal-body">
+                                <div class="form-group row">
+                                    <label for="exampleInputEmail1" class="col-sm-4 col-form-label">Nilai Pembimbing 1</label>
+                                    <div class="col-sm-8">
+                                        <input type="number" name="nilai_3" class="form-control" id="" value="<?= $tugas['nilai_3']; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                        <input type="hidden" name="hidden_nilai_3" value="<?= $tugas['nilai_3']; ?>">
+
+                        <?php if (checkSpvPosition('id_pembimbing_2', $tugas['id']) || session('role') == 1) { ?>
+                            <div class="modal-body">
+                                <div class="form-group row">
+                                    <label for="exampleInputEmail1" class="col-sm-4 col-form-label">Nilai Pembimbing 2</label>
+                                    <div class="col-sm-8">
+                                        <input type="number" name="nilai_4" class="form-control" id="" value="<?= $tugas['nilai_4']; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                        <input type="hidden" name="hidden_nilai_4" value="<?= $tugas['nilai_4']; ?>">
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-flat btn-outline-secondary mb-3" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-flat btn-outline-primary mb-3" value="Masukkan Nilai">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
+    <?php } ?>
     <!-- Modal -->
     <?= $this->endSection(); ?>
 

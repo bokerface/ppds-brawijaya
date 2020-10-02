@@ -40,10 +40,11 @@ class Sidang extends BaseController
     {
         $data = [
             'title' => 'Sidang',
-            'query' => $this->tugas_model->getSpecificTugas($id_sidang),
-            'page_header' => 'Daftar Sidang',
+            'sidang' => $this->tugas_model->detailSidang($id_sidang),
+            'page_header' => 'Detail Sidang',
         ];
 
-        return view('sidang/index', $data);
+        return view('sidang/detail', $data);
+        // dd($this->tugas_model->detailSidang($id_sidang));
     }
 }

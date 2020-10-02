@@ -8,6 +8,8 @@
         echo $this->include('./include/sidebar');
     } elseif (session('role') == 4) {
         echo $this->include('./include/residen_sidebar');
+    } else {
+        echo $this->include('./include/all_sidebar');
     } ?>
 
     <div class="main-content">

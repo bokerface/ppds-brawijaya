@@ -86,9 +86,18 @@ class StasePpdsModel extends Model
         return $this->builder->get()->getResultArray();
     }
 
-    // public function getUserById($user_id)
-    // {
-    //     $query = $this->builder->getWhere(['id' => $user_id])->getRowObject();
-    //     return $query;
-    // }
+    public function changePpdsStase($data)
+    {
+        $query = $this->db->table('stase_ppds')->update($data, array('id' => $data['id']));
+        return $query;
+    }
+
+    function countPpdsStaseByTahap($id_ppds, $id_tahap)
+    {
+        $this->builder->select('*');
+        $this->builder->join('stase', 'stase.id = stase_ppds.id_stase');
+        $this->builder->where('stase_ppds.id_user', $id_ppds);
+        $this->builder->where('stase.id_tahap', $id_tahap);
+        return $this->builder->countAllResults();
+    }
 }

@@ -5,7 +5,6 @@ namespace App\Models;
 use Codeigniter\Database\ConnectionInterface;
 use CodeIgniter\Database\Query;
 use CodeIgniter\Model;
-use DateTime;
 
 class TugasModel extends Model
 {
@@ -25,7 +24,7 @@ class TugasModel extends Model
         'id_penguji_1',
         'id_penguji_2',
         'id_stase',
-        'jenis_tugas'
+        'jenis_tugas',
     ];
 
     public function __construct()
@@ -143,13 +142,48 @@ class TugasModel extends Model
         return $this->builder->countAllResults();
     }
 
+    public function incomingSidang()
+    {
+        $query = $this->db->query("SELECT * FROM tugas
+        WHERE DATE_FORMAT(jadwal_sidang,'%Y-%m-%d') >= CURDATE() AND jenis_tugas = 2 AND deleted_at = 0
+        ORDER BY jadwal_sidang ASC")->getResultArray();
+        return $query;
+    }
+
     public function myIncomingSidang()
     {
-        $today = new DateTime();
-        $this->builder->select('*');
-        $this->builder->where('id_ppds', session('user_id'));
-        $this->builder->where('jenis_tugas', 2);
-        $this->builder->where('jadwal_sidang =<', date("Y-m-d"));
-        return $this->builder->get()->getResultArray();
+        $user_id = session('user_id');
+        $query = $this->db->query("SELECT * FROM tugas
+        WHERE DATE_FORMAT(jadwal_sidang,'%Y-%m-%d') >= CURDATE() AND jenis_tugas = 2 AND deleted_at = 0 AND id_ppds = $user_id
+        ORDER BY jadwal_sidang ASC")->getResultArray();
+        return $query;
+    }
+
+    public function detailSidang($id_sidang)
+    {
+        $this->builder->select(
+            'tugas.*,
+            ci_users.nama_lengkap as ppds,
+            penguji_1.nama_lengkap as pj1,
+            penguji_2.nama_lengkap as pj2,
+            pembimbing_1.nama_lengkap as pb1,
+            pembimbing_2.nama_lengkap as pb2'
+        );
+        $this->builder->join('ci_users', 'ci_users.id = tugas.id_ppds');
+        $this->builder->join('ci_users penguji_1', 'penguji_1.id = tugas.id_penguji_1');
+        $this->builder->join('ci_users penguji_2', 'penguji_2.id = tugas.id_penguji_2');
+        $this->builder->join('ci_users pembimbing_1', 'pembimbing_1.id = tugas.id_pembimbing_1');
+        $this->builder->join('ci_users pembimbing_2', 'pembimbing_2.id = tugas.id_pembimbing_2');
+        $this->builder->where('tugas.id', $id_sidang);
+        return $this->builder->get()->getRowObject();
+    }
+
+    public function postNilai($id_tugas, $data)
+    {
+        $query = $this->db->table('tugas')->update($data, array('id' => $id_tugas));
+        return $query;
+        // $this->builder->where('id', $id_tugas);
+        // $this->builder->update($data);
+        // return true;
     }
 }

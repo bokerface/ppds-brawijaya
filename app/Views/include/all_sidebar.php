@@ -58,22 +58,6 @@
                             <i class="ti-dashboard"></i> <span>Sidang</span>
                         </a>
                     </li>
-                    <li id="pdps">
-                        <a href="javascript:void(0)" aria-expanded="true"><i class="ti-user"></i>
-                            <span>Users</span>
-                        </a>
-                        <ul class="collapse">
-                            <li>
-                                <a href="<?= base_url('admin/users'); ?>" aria-expanded="true">Daftar Users</a>
-                            </li>
-                            <li>
-                                <a href="<?= base_url('admin/ppds/lobby'); ?>" aria-expanded="true">Lobby PPDS</a>
-                            </li>
-                            <!-- <li>
-                                <a href="#" aria-expanded="true">Tambah Pengguna</a>
-                            </li> -->
-                        </ul>
-                    </li>
                 </ul>
             </nav>
         </div>

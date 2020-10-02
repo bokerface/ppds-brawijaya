@@ -73,7 +73,7 @@
                                         </td>
                                         <td class="text-center"><?= $tugas['stase']; ?></td>
                                         <td class="text-center"><?= $tugas['jadwal_sidang']; ?></td>
-                                        <td class="text-center"><?= $tugas['nilai']; ?></td>
+                                        <td class="text-center"><?= ($tugas['nilai_1'] + $tugas['nilai_2'] + $tugas['nilai_3'] + $tugas['nilai_4']) / 4; ?></td>
                                         <td class="text-center">
                                             <!-- <a href="<?= base_url('/tugas/edit/' . $tugas['id']); ?>" class="btn btn-warning btn-xs"><span class="ti-pencil"></span></a> -->
                                             <a href="<?= base_url("/tugas/" . $tugas['id']); ?>" class="btn btn-flat btn-outline-success btn-xs"><span class="ti-info"></span></a>

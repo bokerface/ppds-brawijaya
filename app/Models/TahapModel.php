@@ -31,4 +31,18 @@ class TahapModel extends Model
         $query = $this->builder->getWhere(['id' => $user_id])->getRowObject();
         return $query;
     }
+
+    public function getPpdsTahap($id_ppds)
+    {
+        $this->builder->selectMax('id');
+        $this->builder->where('id_user', $id_ppds);
+        $max_id = $this->builder->get()->getRowObject()->id;
+
+        $this->builder->select('id_tahap');
+        $this->builder->where('id_user', $id_ppds);
+        $this->builder->where('id', $max_id);
+        $query = $this->builder->get()->getRowObject()->id_tahap;
+
+        return $query;
+    }
 }

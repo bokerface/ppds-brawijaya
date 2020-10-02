@@ -34,9 +34,11 @@
                         <table id="dataTable3" class="text-center">
                             <thead class="text-capitalize">
                                 <tr class="text-left">
-                                    <th style="width: 70%;">Nama Lengkap</th>
-                                    <th style="width: 15%;">Tahap</th>
-                                    <th style="width: 15%;"></th>
+                                    <th style="width: 20%;">Nama Lengkap</th>
+                                    <th style="width: 10%;">Stase</th>
+                                    <th style="width: 15%;">Tanggal Mulai</th>
+                                    <th style="width: 15%;">Tanggal Selesai</th>
+                                    <th style="width: 10%;"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,10 +48,16 @@
                                             <?= $ppds['nama_lengkap']; ?>
                                         </td>
                                         <td>
-                                            <?= $ppds['tahap']; ?>
+                                            <?= $ppds['stase']; ?>
+                                        </td>
+                                        <td>
+                                            <?= $ppds['tanggal_mulai']; ?>
+                                        </td>
+                                        <td>
+                                            <?= $ppds['tanggal_selesai']; ?>
                                         </td>
                                         <td class="text-center">
-                                            <button id="<?= $ppds['id_ppds']; ?>" type="button" class="pilih-stase btn btn-flat btn-outline-dark mb-3 btn-xs" data-toggle="modal" data-target="#exampleModalCenter" name="<?= $ppds['stase_ppds_id']; ?>">Pilih Stase</button>
+                                            <a href="<?= base_url("admin/ppds/" . $ppds['id_ppds']); ?>" class="btn btn-flat btn-outline-success btn-xs"><span class="ti-eye"></span></a>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -106,12 +114,7 @@
 <script>
     $('#dashboard').addClass('active');
 
-    // function onclik() {
-    //     var asd = $(this).attr("id")
-    //     console.log(asd);
-    // }
-
-    $(".pilih-stase").click(function() {
+    $(".pilih-stase").click(function(button) {
         var id_ppds = $(this).attr("id");
         var stase_ppds_id = $(this).attr("name");
         // console.log(stase_ppds_id);

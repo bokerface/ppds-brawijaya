@@ -37,7 +37,10 @@ $routes->get('/', 'Home::index', ['filter' => 'checklogin']);
 
 // $routes->resource('tugas');
 // $routes->post('tugas', 'Tugas::index');
+
+// tugas routes
 $routes->post('tugas/post', 'Tugas::post', ['filter' => 'checkresiden']);
+$routes->post('tugas/nilai/post', 'Tugas::postNilai', ['filter' => 'checkadminspv']);
 $routes->get('tugas/tambah', 'Tugas::tambah', ['filter' => 'checkresiden']);
 $routes->get('tugas/saya', 'Tugas::saya', ['filter' => 'checkresiden']);
 $routes->delete('tugas/(:num)', 'Tugas::delete/$1', ['filter' => 'checkresiden']);
@@ -46,6 +49,9 @@ $routes->post('tugas/edit', 'Tugas::update', ['filter' => 'checkresiden']);
 $routes->get('tugas/(:num)', 'Tugas::detail/$1');
 $routes->get('tugas/jenis/(:any)', 'Tugas::index/$1');
 $routes->get('tugas/saya/(:any)', 'Tugas::saya/$1');
+$routes->get('logbook/', 'Logbook::index');
+$routes->get('logbook/tambah', 'Logbook::tambah');
+$routes->post('logbook/tambah', 'Logbook::post', ['filter' => 'checkresiden']);
 
 // sidang routes
 $routes->get('sidang/(:num)', 'Sidang::detail/$1');
@@ -55,6 +61,12 @@ $routes->group('admin', function ($routes) {
 	$routes->get('users/(:num)', 'Admin\Users::detail/$1');
 	$routes->get('users/', 'Admin\Users::view');
 	$routes->get('ppds/lobby', 'Admin\Users::lobby');
+	$routes->post('stase', 'StaseResource::index');
+	$routes->post('ppds/selectstaseppds', 'Admin\Users::postPpdsStase');
+	$routes->post('ppds/staseselesai', 'Admin\Users::staseSelesai');
+	$routes->get('ppds/tahap/(:num)', 'Admin\Users::ppds/$1');
+	$routes->get('ppds/(:num)', 'Admin\Users::detailppds/$1');
+	// $routes->addRedirect('stase', '/');
 	$routes->addRedirect('ppds/', 'admin/users');
 	$routes->delete('users/(:num)', 'Admin\Users::delete/$1');
 	// $routes->resource('admin/users');

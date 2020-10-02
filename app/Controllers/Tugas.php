@@ -210,6 +210,28 @@ class Tugas extends BaseController
         return view('tugas/detail', $data);
     }
 
+    public function postNilai()
+    {
+        $id_tugas = $this->request->getVar('hidden_tugas_id');
+        $nilai_1 =  $this->request->getVar('nilai_1');
+        $nilai_2 =  $this->request->getVar('nilai_2');
+        $nilai_3 =  $this->request->getVar('nilai_3');
+        $nilai_4 =  $this->request->getVar('nilai_4');
+        $data = [
+            // 'id' => $id_tugas,
+            'nilai_1' => $nilai_1 == null ? $this->request->getVar('hidden_nilai_1') : $nilai_1,
+            'nilai_2' => $nilai_2 == null ? $this->request->getVar('hidden_nilai_2') : $nilai_2,
+            'nilai_3' => $nilai_3 == null ? $this->request->getVar('hidden_nilai_3') : $nilai_3,
+            'nilai_4' => $nilai_4 == null ? $this->request->getVar('hidden_nilai_4') : $nilai_4,
+        ];
+
+        $result = $this->tugas_model->postNilai($id_tugas, $data);
+
+        if ($result) {
+            return redirect()->to(base_url('tugas/jenis/tugas_besar'))->with('success', 'Nilai berhasil dimasukkan!');
+        }
+    }
+
     public function edit($id_tugas = 0)
     {
         $data = [

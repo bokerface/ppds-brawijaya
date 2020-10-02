@@ -17,7 +17,7 @@
                 <?php } ?>
                 <?php if (session('role') == 4) { ?>
                     <b>
-                        <h5>Selamat datang <?= $user_data->nama_lengkap; ?></h5>
+                        <h5>Selamat datang <?= $user_data->nama_lengkap == '' ? 'PPDS' : $user_data->nama_lengkap; ?></h5>
                     </b>
                 <?php } ?>
             </div>
@@ -70,6 +70,7 @@
             <div class="row mt-4">
                 <div class="col-6">
                     <div class="single-report mb-xs-30">
+
                         <div class="container mt-2">
                             <h4 class="header-title">Sidang Saya</h4>
                             <div class="single-table">
@@ -81,23 +82,20 @@
                                                 <th scope="col">Tanggal Sidang</th>
                                             </tr>
                                         </thead>
+
                                         <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>jone</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>jone</td>
-                                            </tr>
+                                            <?php if ($my_incoming_sidang) { ?>
+                                                <?php foreach ($my_incoming_sidang as $sidang) { ?>
+                                                    <tr>
+                                                        <td scope="row"><?= $sidang['judul']; ?></td>
+                                                        <td><?= $sidang['jadwal_sidang']; ?></td>
+                                                    </tr>
+                                                <?php } ?>
+                                            <?php } else { ?>
+                                                <tr>
+                                                    <td colspan="2">Tidak ada sidang</td>
+                                                </tr>
+                                            <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -119,22 +117,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>jone</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>jone</td>
-                                            </tr>
+                                            <?php if ($incoming_sidang) { ?>
+                                                <?php foreach ($incoming_sidang as $sidang) { ?>
+                                                    <tr>
+                                                        <td scope="row"><?= $sidang['judul']; ?></td>
+                                                        <td><?= $sidang['jadwal_sidang']; ?></td>
+                                                    </tr>
+                                                <?php } ?>
+                                            <?php } else { ?>
+                                                <tr>
+                                                    <td colspan="2">Tidak ada sidang</td>
+                                                </tr>
+                                            <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>

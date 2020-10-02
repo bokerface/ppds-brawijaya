@@ -15,6 +15,7 @@ class Filters extends BaseConfig
 		'checklogin' => \App\Filters\LoginFilter::class,
 		'checkadmin' => \App\Filters\AdminFilter::class,
 		'checkresiden' => \App\Filters\ResidenFilter::class,
+		'checkadminspv' => \App\Filters\AdminAndSpvFilter::class,
 		// 'options' => \App\Filters\Options::class,
 	];
 

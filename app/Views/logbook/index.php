@@ -7,29 +7,22 @@
             <div class="card-body">
                 <div class="col-12 mt-3">
                     <div class="data-tables datatable-dark">
-                        <table id="dataTable3" class="text-center">
-                            <thead class="text-capitalize">
+                        <table id="dataTable" class="text-center">
+                            <thead class="bg-dark">
                                 <tr>
-                                    <th style="width: 25%;">Sidang</th>
-                                    <th style="width: 15%;">PPDS</th>
-                                    <th style="width: 15%;">Tanggal Sidang</th>
+                                    <th>Judul</th>
+                                    <th>Tanggal</th>
+                                    <th>PPDS</th>
+                                    <th>Diperiksa</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($query as $sidang) { ?>
+                                <?php foreach ($query as $logbook) { ?>
                                     <tr>
-                                        <td>
-                                            <a href="<?= base_url('sidang/' . $sidang['id']); ?>">
-                                                <!-- <a href="#"> -->
-                                                <?= $sidang['judul']; ?>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <?= $sidang['nama_lengkap']; ?>
-                                        </td>
-                                        <td>
-                                            <?= $sidang['jadwal_sidang']; ?>
-                                        </td>
+                                        <td><?= $logbook['judul']; ?></td>
+                                        <td><?= $logbook['tanggal']; ?></td>
+                                        <td><?= $logbook['nama_lengkap']; ?></td>
+                                        <td><i class="ti-check"></i></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
